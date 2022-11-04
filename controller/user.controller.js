@@ -35,3 +35,31 @@ module.exports.saveUser = (req, res) => {
   }
 };
 
+module.exports.updateUser = (req, res) => {
+  const id = req.params.id;
+  const numId = parseInt(id);
+  const updateUser = req.body;
+  const findUser = data.find((user) => user.id === Number(id));
+
+  if (findUser && numId === Number(id)) {
+    findUser.name = updateUser.name;
+
+    findUser.gender = updateUser.gender;
+
+    findUser.address = updateUser.address;
+
+    findUser.contact = updateUser.contact;
+
+    findUser.photoUrl = updateUser.photoUrl;
+    res.status(200).json(findUser);
+  } else if (numId !== Number) {
+    res.status(404).json({
+      message: "plese send number as id ",
+    });
+  } else {
+    res.status(404).json({
+      message: "user not found",
+    });
+  }
+};
+
