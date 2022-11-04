@@ -63,3 +63,25 @@ module.exports.updateUser = (req, res) => {
   }
 };
 
+module.exports.deleteUser = (req, res) => {
+  const id = req.params.id;
+  const numId = parseInt(id);
+  const findUser = data.find((user) => user.id === Number(id));
+  console.log(findUser);
+  if (findUser && numId === Number(id)) {
+    const index = data.indexOf(findUser);
+    data.splice(index, 1);
+    res.status(200).json({
+      message: "user deleted",
+      user: findUser,
+    });
+  } else if (numId !== Number(id)) {
+    res.status(404).json({
+      message: "plese send number as id ",
+    });
+  } else {
+    res.status(404).json({
+      message: "user not found",
+    });
+  }
+};
